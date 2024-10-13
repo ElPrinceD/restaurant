@@ -1,5 +1,6 @@
-import { StyleSheet } from "react-native";
-import { Text, View } from "@/components/Themed";
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
+import { useRouter } from "expo-router"; // Import useRouter for navigation
 import Button from "@/components/Button";
 import { useColorScheme } from "react-native";
 import Colors from "../../constants/Colors";
@@ -10,6 +11,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 export default function Home() {
   const colorScheme = useColorScheme();
   const themeColors = Colors[colorScheme ?? "light"];
+  const router = useRouter(); // Initialize router
 
   const styles = StyleSheet.create({
     container: {
@@ -125,6 +127,7 @@ export default function Home() {
             styles.transparentButton,
             { backgroundColor: themeColors.buttonBackground },
           ]}
+          onPress={() => router.navigate("/menu")} // Add navigation to the "menu" page
         >
           <Text style={styles.transparentText}>
             <MaterialCommunityIcons
@@ -161,7 +164,6 @@ export default function Home() {
           </Text>
           <View style={styles.loyaltyNumberContainer}>
             <Text style={styles.loyaltyNumber}>100</Text>
-            {/* <Text style={styles.pointsText}>points</Text> */}
           </View>
         </Button>
       </View>

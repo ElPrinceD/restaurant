@@ -1,7 +1,7 @@
 import React from "react";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Link, Tabs } from "expo-router";
-import { Pressable, Text } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import { useThemeColor } from "../../components/Themed";
 import Colors from "@/constants/Colors";
 import { useColorScheme } from "@/components/useColorScheme";
@@ -23,6 +23,15 @@ export default function TabLayout() {
       dark: Colors.dark.text, // Set dark mode text color
     },
     "text"
+  );
+  
+  // Get the background color for the menu page
+  const themeBackgroundColor = useThemeColor(
+    {
+      light: Colors.light.background, // Change to your desired light mode background color
+      dark: Colors.dark.background, // Change to your desired dark mode background color
+    },
+    "background"
   );
 
   return (
@@ -54,15 +63,52 @@ export default function TabLayout() {
             </Link>
           ),
           headerTitle: () => (
-            <Text
+            <View
               style={{
-                color: themeTextColor,
-                fontSize: 20,
-                fontWeight: "bold",
+                backgroundColor: themeBackgroundColor,
+                padding: 10, // Add some padding to the background
+                borderRadius: 5, // Optional: Round the corners
               }}
             >
-              Hi, Pravesh!
-            </Text>
+              <Text
+                style={{
+                  color: themeTextColor,
+                  fontSize: 20,
+                  fontWeight: "bold",
+                }}
+              >
+                Hi, Pravesh!
+              </Text>
+            </View>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="menu" // Ensure this matches the actual menu page route
+        options={{
+          title: "Menu", // Change this to your desired title
+          headerStyle: {
+            backgroundColor: "transparent",
+          },
+          tabBarIcon: ({ color }) => <TabBarIcon name="cutlery" color={color} />, // Change icon as needed
+          headerTitle: () => (
+            <View
+              style={{
+                backgroundColor: "transparent",
+                padding: 10, // Add some padding to the background
+                borderRadius: 5, // Optional: Round the corners
+              }}
+            >
+              <Text
+                style={{
+                  color: themeTextColor,
+                  fontSize: 15, // Adjusted font size for consistency
+                  fontWeight: "bold",
+                }}
+              >
+                MENU
+              </Text>
+            </View>
           ),
         }}
       />
