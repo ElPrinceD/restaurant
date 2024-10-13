@@ -1,22 +1,28 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+
 import { useRouter } from "expo-router"; // Import useRouter for navigation
+import { useRef, useEffect, useState } from "react";
+import { ScrollView, StyleSheet, ImageBackground } from "react-native";
+import { Text, View } from "@/components/Themed";
 import Button from "@/components/Button";
-import { useColorScheme } from "react-native";
+import { useColorScheme } from "../../components/useColorScheme";
 import Colors from "../../constants/Colors";
 import { SIZES, rMS, rS, rV } from "../../constants";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import PreviousOrderItem from "@/components/PreviousOrders";
+import previousOrders from "@/Data/PreviousOrders";
+import Animated, { FadeInLeft, ReduceMotion } from "react-native-reanimated";
 
 export default function Home() {
   const colorScheme = useColorScheme();
   const themeColors = Colors[colorScheme ?? "light"];
   const router = useRouter(); // Initialize router
+  const [isLive, setIsLive] = useState(false);
 
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      justifyContent: "flex-start",
       paddingTop: rV(10),
       paddingHorizontal: rS(20),
       backgroundColor: themeColors.background,
@@ -64,6 +70,32 @@ export default function Home() {
       fontSize: SIZES.medium,
       fontWeight: "bold",
     },
+    mealButton: {
+      borderRadius: 20,
+      width: rS(100),
+      height: rV(130),
+      overflow: "hidden",
+      alignItems: "center",
+      justifyContent: "center",
+      backgroundColor: "transparent",
+    },
+    mealImage: {
+      width: rS(100),
+      height: rV(130),
+      justifyContent: "flex-end",
+      alignItems: "center",
+    },
+    mealText: {
+      fontSize: SIZES.large,
+      fontWeight: "900",
+      color: themeColors.background,
+      textAlign: "center",
+      marginVertical: rMS(10),
+      textShadowColor: themeColors.shadow,
+      textShadowOffset: { width: -1, height: 1 },
+      textShadowRadius: 1,
+      flexWrap: "wrap",
+    },
     loyaltyButton: {
       backgroundColor: colorScheme === "light" ? "#EEEEEE" : "#3A3B3C",
       borderRadius: 20,
@@ -88,16 +120,10 @@ export default function Home() {
       fontWeight: "bold",
       color: colorScheme === "light" ? "#000" : "#B8860B",
     },
-    pointsText: {
-      fontSize: SIZES.medium,
-      color: themeColors.text,
-      fontWeight: "bold",
-      marginLeft: rMS(5),
-    },
     previousRow: {
       flexDirection: "row",
       gap: 10,
-      marginVertical: rV(25),
+      marginTop: rV(25),
       alignItems: "center",
     },
     previousOrdersText: {
@@ -115,10 +141,11 @@ export default function Home() {
       color: themeColors.tint,
       fontSize: SIZES.medium,
     },
+    previousOrdersContainer: {},
   });
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Text style={styles.welcomeText}>Welcome to FarmHouse Coventry</Text>
 
       <View style={styles.row}>
@@ -149,9 +176,26 @@ export default function Home() {
       </View>
 
       <View style={styles.row}>
-        <Button style={styles.liveButton}>
-          <Text style={styles.liveText}>Live</Text>
-        </Button>
+        <Animated.View
+          entering={FadeInLeft.delay(500)
+            .randomDelay()
+            .reduceMotion(ReduceMotion.Never)}
+        >
+          {isLive ? (
+            <Button style={styles.liveButton}>
+              <Text style={styles.liveText}>Live</Text>
+            </Button>
+          ) : (
+            <Button style={styles.mealButton}>
+              <ImageBackground
+                source={require("@/assets/images/meal-of-the-day.png")}
+                style={styles.mealImage}
+              >
+                <Text style={styles.mealText}>Meal of the Day</Text>
+              </ImageBackground>
+            </Button>
+          )}
+        </Animated.View>
 
         <Button style={styles.loyaltyButton}>
           <Text style={styles.loyaltyText}>
@@ -163,7 +207,7 @@ export default function Home() {
             Loyalty Points
           </Text>
           <View style={styles.loyaltyNumberContainer}>
-            <Text style={styles.loyaltyNumber}>100</Text>
+            <Text style={styles.loyaltyNumber}>150</Text>
           </View>
         </Button>
       </View>
@@ -174,6 +218,17 @@ export default function Home() {
           <Text style={styles.seeAllText}>See All</Text>
         </Button>
       </View>
-    </View>
+      <View style={styles.previousOrdersContainer}>
+        {previousOrders.map((order) => (
+          <PreviousOrderItem
+            key={order.id}
+            mealName={order.mealName}
+            date={order.date}
+            loyaltyPoints={order.loyaltyPoints}
+            image={order.image}
+          />
+        ))}
+      </View>
+    </ScrollView>
   );
 }
