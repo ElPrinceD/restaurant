@@ -1,13 +1,13 @@
 import React from "react";
 
-import { useRouter } from "expo-router"; // Import useRouter for navigation
-import { useRef, useEffect, useState } from "react";
+import { router } from "expo-router"; // Import useRouter for navigation
+import { useState } from "react";
 import { ScrollView, StyleSheet, ImageBackground } from "react-native";
 import { Text, View } from "@/components/Themed";
 import Button from "@/components/Button";
-import { useColorScheme } from "../../components/useColorScheme";
-import Colors from "../../constants/Colors";
-import { SIZES, rMS, rS, rV } from "../../constants";
+import { useColorScheme } from "../../../components/useColorScheme";
+import Colors from "../../../constants/Colors";
+import { SIZES, rMS, rS, rV } from "../../../constants";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import PreviousOrderItem from "@/components/PreviousOrders";
@@ -17,7 +17,6 @@ import Animated, { FadeInLeft, ReduceMotion } from "react-native-reanimated";
 export default function Home() {
   const colorScheme = useColorScheme();
   const themeColors = Colors[colorScheme ?? "light"];
-  const router = useRouter(); // Initialize router
   const [isLive, setIsLive] = useState(false);
 
   const styles = StyleSheet.create({
@@ -154,7 +153,7 @@ export default function Home() {
             styles.transparentButton,
             { backgroundColor: themeColors.buttonBackground },
           ]}
-          onPress={() => router.navigate("/menu")} // Add navigation to the "menu" page
+          onPress={() => router.navigate("/main/menu")} // Add navigation to the "menu" page
         >
           <Text style={styles.transparentText}>
             <MaterialCommunityIcons
