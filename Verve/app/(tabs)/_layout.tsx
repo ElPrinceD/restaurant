@@ -1,7 +1,6 @@
 import React from "react";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { Link, Tabs } from "expo-router";
-import { Pressable, Text } from "react-native";
+import { Tabs } from "expo-router";
 import { useThemeColor } from "../../components/Themed";
 import Colors from "@/constants/Colors";
 import { useColorScheme } from "@/components/useColorScheme";
@@ -25,6 +24,15 @@ export default function TabLayout() {
     "text"
   );
 
+  // Get the background color for the menu page
+  const themeBackgroundColor = useThemeColor(
+    {
+      light: Colors.light.background, // Change to your desired light mode background color
+      dark: Colors.dark.background, // Change to your desired dark mode background color
+    },
+    "background"
+  );
+
   return (
     <Tabs
       screenOptions={{
@@ -35,35 +43,11 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name="index"
+        name="main"
         options={{
           title: "Home",
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          headerRight: () => (
-            <Link href="/notifications" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <FontAwesome
-                    name="bell-o"
-                    size={25}
-                    color={Colors[colorScheme ?? "light"].text}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
-          ),
-          headerTitle: () => (
-            <Text
-              style={{
-                color: themeTextColor,
-                fontSize: 20,
-                fontWeight: "bold",
-              }}
-            >
-              Hi, Pravesh!
-            </Text>
-          ),
+          headerShown: false,
         }}
       />
       <Tabs.Screen

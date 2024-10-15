@@ -16,6 +16,7 @@ type ButtonProps = {
   style?: ViewStyle | ViewStyle[];
   textStyle?: TextStyle | TextStyle[];
   children?: React.ReactNode;
+  activeOpacity?: number;
 };
 
 const Button: React.FC<ButtonProps> = ({
@@ -25,6 +26,7 @@ const Button: React.FC<ButtonProps> = ({
   style,
   textStyle,
   children,
+  activeOpacity = 0.6,
 }) => {
   const colorScheme = useColorScheme();
   const themeColors = Colors[colorScheme ?? "light"];
@@ -56,7 +58,7 @@ const Button: React.FC<ButtonProps> = ({
       ]}
       onPress={onPress}
       disabled={disabled}
-      activeOpacity={0.6}
+      activeOpacity={activeOpacity}
     >
       {children ? (
         children
