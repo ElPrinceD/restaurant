@@ -13,6 +13,8 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import PreviousOrderItem from "@/components/PreviousOrders";
 import previousOrders from "@/Data/PreviousOrders";
 import Animated, { FadeInLeft, ReduceMotion } from "react-native-reanimated";
+import ChefsRecommendation from "@/components/ChefsRecommendations";
+import chefRecommendations from "@/Data/ChefsRecommendationsData";
 
 export default function Home() {
   const colorScheme = useColorScheme();
@@ -122,7 +124,7 @@ export default function Home() {
     previousRow: {
       flexDirection: "row",
       gap: 10,
-      marginTop: rV(25),
+      marginTop: rV(15),
       alignItems: "center",
     },
     previousOrdersText: {
@@ -140,7 +142,15 @@ export default function Home() {
       color: themeColors.tint,
       fontSize: SIZES.medium,
     },
-    previousOrdersContainer: {},
+    previousOrdersContainer: {
+      marginBottom: rV(8),
+    },
+    chefRecommendationHeader: {
+      marginTop: rV(25),
+      fontSize: SIZES.large,
+      fontWeight: "bold",
+      color: themeColors.text,
+    },
   });
 
   return (
@@ -209,6 +219,22 @@ export default function Home() {
             <Text style={styles.loyaltyNumber}>150</Text>
           </View>
         </Button>
+      </View>
+
+      {/* Chef's Recommendations Section */}
+      <Text style={styles.chefRecommendationHeader}>
+        Chef's Recommendations
+      </Text>
+      <View>
+        {chefRecommendations.map((dish) => (
+          <ChefsRecommendation
+            key={dish.id}
+            dishName={dish.dishName}
+            description={dish.description}
+            price={dish.price}
+            image={dish.image}
+          />
+        ))}
       </View>
 
       <View style={styles.previousRow}>

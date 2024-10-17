@@ -1,5 +1,5 @@
 import React from "react";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
+import AntDesign from "@expo/vector-icons/AntDesign";
 import { Tabs } from "expo-router";
 import { useThemeColor } from "../../components/Themed";
 import Colors from "@/constants/Colors";
@@ -8,10 +8,10 @@ import { useClientOnlyValue } from "@/components/useClientOnlyValue";
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>["name"];
+  name: React.ComponentProps<typeof AntDesign>["name"];
   color: string;
 }) {
-  return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
+  return <AntDesign size={28} style={{ marginBottom: -3 }} {...props} />;
 }
 
 export default function TabLayout() {
@@ -46,15 +46,15 @@ export default function TabLayout() {
         name="main"
         options={{
           title: "Home",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
           headerShown: false,
         }}
       />
       <Tabs.Screen
         name="two"
         options={{
-          title: "Tab Two",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: "Account",
+          tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,
         }}
       />
     </Tabs>
