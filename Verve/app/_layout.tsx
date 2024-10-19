@@ -11,6 +11,9 @@ import { useEffect } from "react";
 import "react-native-reanimated";
 
 import { useColorScheme } from "@/components/useColorScheme";
+import { TamaguiProvider } from "@tamagui/core";
+import { PortalProvider } from "@tamagui/portal";
+import config from "../tamagui.config";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -29,6 +32,8 @@ export default function RootLayout() {
   const [loaded, error] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
     ...FontAwesome.font,
+    Inter: require("@tamagui/font-inter/otf/Inter-Medium.otf"),
+    InterBold: require("@tamagui/font-inter/otf/Inter-Bold.otf"),
   });
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
@@ -53,14 +58,24 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen
-          name="notifications"
-          options={{ presentation: "modal" }}
-        />
-      </Stack>
-    </ThemeProvider>
+    <TamaguiProvider config={config}>
+      <PortalProvider>
+        <ThemeProvider
+          value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+        >
+          <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen
+              name="notifications"
+              options={{ presentation: "modal" }}
+            />
+            <Stack.Screen
+              name="(MealReservation)"
+              options={{ headerShown: false }}
+            />
+          </Stack>
+        </ThemeProvider>
+      </PortalProvider>
+    </TamaguiProvider>
   );
 }

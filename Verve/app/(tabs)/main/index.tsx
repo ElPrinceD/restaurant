@@ -175,7 +175,10 @@ export default function Home() {
             Menu
           </Text>
         </Button>
-        <Button style={styles.reservationButton}>
+        <Button
+          style={styles.reservationButton}
+          onPress={() => router.navigate("/(MealReservation)/Reservation")} // Add navigation to the "menu" page
+        >
           <Text style={styles.reservationText}>
             <Ionicons name="restaurant" size={SIZES.medium} />
             {"  "}
