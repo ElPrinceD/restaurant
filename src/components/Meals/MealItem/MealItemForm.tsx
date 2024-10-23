@@ -18,16 +18,15 @@ const MealItemForm = (props: any) => {
       if (
         enteredAmount.trim().length === 0 ||
         enteredAmountNumber < 1 ||
-        enteredAmountNumber > 5
+        enteredAmountNumber > 4  // Allow only less than 5
       ) {
         setAmountIsValid(false);
         return;
       }
     }
 
+    // Pass the entered amount to the parent component
     props.onAddToCart(enteredAmountNumber);
-
-    //amountInputRef.current.value = "1";
   };
 
   return (
@@ -39,13 +38,13 @@ const MealItemForm = (props: any) => {
           id: "amount_" + props.id,
           type: "number",
           min: "1",
-          max: "5",
+          max: "4",  // Updated max value
           step: "1",
           defaultValue: "1",
         }}
       />
       <button>+ Add</button>
-      {!amountIsValid && <p>Please enter a valid amount (1-5).</p>}
+      {!amountIsValid && <p>Please enter a valid amount (1-4).</p>}
     </form>
   );
 };

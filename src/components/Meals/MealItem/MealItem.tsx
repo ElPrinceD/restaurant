@@ -21,7 +21,7 @@ const MealItem = (props: any) => {
       <div>
         <h3>{meal.name}</h3>
         <div className={classes.description}>{meal.description}</div>
-        <div className={classes.price}>{price}</div>
+        
       </div>
       <div><MealItemForm onAddToCart={addToCartHandler}/></div>
     </li>

@@ -26,24 +26,28 @@ const Cart = (props: any) => {
 
   const cartItems = (
     <ul className={classes["cart-items"]}>
-      {meals.map((item: IMeal) => {
-        return (
-          <CartItem
-            key={item.id}
-            item={item}
-            onAdd={cartItemAddHandler.bind(null, item)}
-            onRemove={cartItemRemoveHandler.bind(null, item.id)}
-          />
-        );
-      })}
+      {meals.map((meal: IMeal) => (
+        <li key={meal.id}>
+          <h2>{meal.name}</h2>
+          <ul className={classes["ingredient-list"]}>
+            {meal.ingredients.map((ingredient) => (
+              <li key={ingredient.name}>
+                {ingredient.name}: {ingredient.quantity}
+              </li>
+            ))}
+          </ul>
+          <div className={classes.actions}>
+            <button onClick={cartItemAddHandler.bind(null, meal)}>+</button>
+            <button onClick={cartItemRemoveHandler.bind(null, meal.id)}>-</button>
+          </div>
+        </li>
+      ))}
     </ul>
   );
 
   return (
     <Modal onClose={props.onHideCart}>
-      {!hasMeals && (
-        <p className={classes["no-items"]}>No meals in your cart</p>
-      )}
+      {!hasMeals && <p className={classes["no-items"]}>No ingredients in your cart</p>}
       {cartItems}
       <div className={classes.total}>
         <span>Total Amount</span>
@@ -54,17 +58,17 @@ const Cart = (props: any) => {
           Close
         </button>
         {hasMeals && (
-          <button
-            className={classes["button--empty"]}
-            onClick={cartItemEmptyHandler}
-          >
-            Empty Cart
-          </button>
-        )}
-        {hasMeals && (
-          <button className={classes.button} onClick={props.onHideCart}>
-            Order
-          </button>
+          <>
+            <button
+              className={classes["button--empty"]}
+              onClick={cartItemEmptyHandler}
+            >
+              Empty Cart
+            </button>
+            <button className={classes.button} onClick={props.onHideCart}>
+              Order
+            </button>
+          </>
         )}
       </div>
     </Modal>
@@ -72,3 +76,5 @@ const Cart = (props: any) => {
 };
 
 export default Cart;
+
+
