@@ -16,7 +16,7 @@ export const mealSlice = createSlice({
   name: "meal",
   initialState: initialState,
   reducers: {
-    //Add meal
+    
     addMeal: (state, action: PayloadAction<IMeal>) => {
       //Updates total amount
       state.totalAmount += action.payload.price * action.payload.amount;

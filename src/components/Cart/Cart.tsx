@@ -49,10 +49,10 @@ const Cart = (props: any) => {
     <Modal onClose={props.onHideCart}>
       {!hasMeals && <p className={classes["no-items"]}>No ingredients in your cart</p>}
       {cartItems}
-      <div className={classes.total}>
+      {/* <div className={classes.total}>
         <span>Total Amount</span>
         <span>{totalAmount}</span>
-      </div>
+      </div> */}
       <div className={classes.actions}>
         <button className={classes["button--alt"]} onClick={props.onHideCart}>
           Close
