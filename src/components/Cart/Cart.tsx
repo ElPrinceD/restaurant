@@ -10,7 +10,7 @@ const Cart = (props: any) => {
   const mealState = useAppSelector((state) => state.meals);
   const meals = mealState.meals;
   const hasMeals = meals.length > 0;
-  const totalAmount = `$${mealState.totalAmount.toFixed(2)}`;
+ // const totalAmount = `$${mealState.totalAmount.toFixed(2)}`;
 
   const cartItemAddHandler = (meal: IMeal) => {
     dispatch(addMeal({ ...meal, amount: 1 }));
